@@ -545,10 +545,10 @@
                 page.style.transform = 'rotateY(-180deg)';
                 activePageIndex = index;
 
-                // Delayed left page update set to 0.5 seconds (500ms) to match page flip
+                // Delayed left page update set to 0.4 seconds (400ms) to match page flip
                 setTimeout(() => {
                     updateLeftPage(index);
-                }, 500);
+                }, 400);
 
                 if (index === 0) {
                     confettiBurst();
@@ -571,7 +571,7 @@
                 // Delayed left page update set to 0.5 seconds (500ms) to match page flip
                 setTimeout(() => {
                     updateLeftPage(activePageIndex);
-                }, 500);
+                }, 400);
             }
         }
 
