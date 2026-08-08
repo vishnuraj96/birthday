@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumya Birthday</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@400;600&family=Titan+One&family=Sriracha&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --color-pink: #feecea;
+            --color-white: #fff;
+            --color-black: #333;
+            --color-text-pink: #FF7882;
+            --color-heart: #FF7882;
+            --color-bg-letter: #fff8e4;
+            --color-border: #DACCBF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            position: relative;
+            font-size: 16px;
+            background-image: linear-gradient(var(--color-pink), var(--color-pink));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        #wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255,1) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 1) 76%, transparent 77%, transparent);
+            background-size: 80px 80px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        /* Particle Background Container */
+        #tsparticles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Top Flags */
+        .flag__birthday {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-200px);
+            animation: translateYFlag 1.5s 0.5s forwards;
+            z-index: 3;
+            pointer-events: none;
+        }
+        @keyframes translateYFlag {
+            to { transform: translateY(-10px); }
+        }
+        .flag__birthday .flag__left {
+            transform: rotate(-10deg) translate(-20px,30px);
+        }
+        .flag__birthday .flag__right {
+            transform: rotate(10deg) translate(20px,30px) scaleX(-1);
+        }
+
+        /* Book Container */
+        .book {
+            width: 900px;
+            height: 540px;
+            position: relative;
+            perspective: 2500px;
+            z-index: 10;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            background: #fffdf9;
+            overflow: hidden;
+        }
+
+        /* Left Page (Displays Title & Joke Description) */
+        .left-page {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #fffdf9;
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 35px;
+            text-align: center;
+            border-right: 2px solid #f0e6df;
+            z-index: 5;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+
+        .left-page::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px dashed #FF7882;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .left-content-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Fixed Artistic Sticker Styling (Stuck like real stationery stickers) */
+        .page-sticker {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 6;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 6px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 182, 188, 0.4);
+        }
+
+        /* Right Side: Turning Pages Container */
+        #pagesContainer {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .page-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .front {
+            background-color: #fffdf9;
+            color: #333;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border-right: 2px solid #f0e6df;
+        }
+
+        .back {
+            background-color: #fffdf9;
+            color: #333;
+            transform: rotateY(180deg);
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+            border-left: 2px solid #f0e6df;
+        }
+
+        /* Cover Page Styling */
+        .cover-front {
+            background-color: var(--color-text-pink);
+            color: white;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border-right: none;
+            padding: 40px 35px;
+        }
+
+        .cover-front::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .cover-front h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px rgba(0, 0, 0, 0.15);
+            font-weight: 700;
+        }
+
+        .cover-front p {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.9;
+            font-family: "Sriracha", cursive;
+        }
+
+        h2 {
+            color: var(--color-text-pink);
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        p.message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 15px;
+            font-family: "Sriracha", cursive;
+        }
+
+        /* Full Page Photo Layout */
+        .photo-container-full {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #fffdf9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+        }
+
+        .photo-inner-frame {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.08);
+        }
+
+        .photo-container-full img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 950px) {
+            .book {
+                width: 95vw;
+                height: 70vh;
+            }
+            .cover-front h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.2rem; }
+            p.message { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Background Particle Animation Container -->
+        <div id="tsparticles"></div>
+
+        <!-- Top Flags -->
+        <div class="flag__birthday">
+            <img src="./images/1.png" alt="" width="250" class="flag__left" onerror="this.style.display='none'">
+            <img src="./images/1.png" alt="" width="250" class="flag__right" onerror="this.style.display='none'">
+        </div>
+
+        <!-- Book Spread Layout -->
+        <div class="book" id="birthdayBook">
+            <!-- Left Page: Displays Title & Joke Description -->
+            <div class="left-page" id="leftPageContent" onclick="turnPreviousPage()">
+                <div class="page-sticker" style="top: 25px; left: 30px; transform: rotate(-8deg);">🎈</div>
+                <div class="page-sticker" style="bottom: 30px; left: 35px; transform: rotate(12deg);">🎁</div>
+                <div class="page-sticker" style="top: 30px; right: 30px; transform: rotate(10deg);">🧁</div>
+                <div class="page-sticker" style="bottom: 35px; right: 30px; transform: rotate(-10deg);">⭐</div>
+                
+                <div class="left-content-inner">
+                    <h2>Happy Birthday Soumya!</h2>
+                    <p class="message">Warning: Opening this book may cause sudden bursts of laughter and exposure of your old embarrassing secrets. Proceed at your own risk! 🤫😂</p>
+                    <p class="message" style="font-size: 0.9rem; color: #888; font-style: italic;">Click the right page to open ➡️<br>(Click here to go back)</p>
+                    <div style="margin-top: 10px; font-size: 1.1rem; color: #ff949c; letter-spacing: 8px;">🎀 💖 🎀</div>
+                </div>
+            </div>
+
+            <!-- Right Side: Turning Pages -->
+            <div id="pagesContainer"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Library -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    
+    <script>
+        const bookData = [
+            { 
+                title: "Look Who's Older!", 
+                caption: "Another year older, but let's be honest, you're not getting any wiser! 😂🎂", 
+                img: "images/photo1.jpg",
+                bgColor: "#fffdf9",
+                footerSymbol: "🎂 ✨ 🎂",
+                stickers: ["🎂", "🎈", "⭐", "🎉"]
+            },
+            { 
+                title: "The Dynamic Duo", 
+                caption: "Proof that two crazy people make a great team. Mostly you being crazy, me handling it! 😜", 
+                img: "images/photo2.jpg",
+                bgColor: "#f4f8ff",
+                footerSymbol: "👑 💖 👑",
+                stickers: ["👑", "💖", "🎈", "🎁"]
+            },
+            { 
+                title: "Ancient History", 
+                caption: "Even the ruins in the background look younger than you in this one! 🏛️👵", 
+                img: "images/photo3.jpg",
+                bgColor: "#fef9e7",
+                footerSymbol: "🏛️ ⏳ 🏛️",
+                stickers: ["⏳", "⭐", "🧁", "🎈"]
+            },
+            { 
+                title: "Lost in the Woods", 
+                caption: "Are you looking for the right path, or just running away from your responsibilities? 🌲🏃‍♀️", 
+                img: "images/photo4.jpg",
+                bgColor: "#f0fdf4",
+                footerSymbol: "🌲 🍃 🌲",
+                stickers: ["🌲", "🍄", "⭐", "🎁"]
+            },
+            { 
+                title: "Titanic Wannabe", 
+                caption: "Careful, there are no icebergs here, just your terrible steering skills! 🚣‍♀️💥", 
+                img: "images/photo5.jpg",
+                bgColor: "#e0f2fe",
+                footerSymbol: "🌊 ⛵ 🌊",
+                stickers: ["⛵", "🌊", "🎈", "⭐"]
+            },
+            { 
+                title: "Royal Drama Queen", 
+                caption: "Dressed like royalty, but we all know you throw tantrums like a toddler. 👑🍼", 
+                img: "images/photo6.jpg",
+                bgColor: "#fae8ff",
+                footerSymbol: "👑 ✨ 👑",
+                stickers: ["👑", "🍼", "✨", "💖"]
+            },
+            { 
+                title: "Vitamin D Deficiency", 
+                caption: "Finally getting some sunlight instead of glowing like a vampire in your room! ☀️🧛‍♀️", 
+                img: "images/photo7.jpg",
+                bgColor: "#fef3c7",
+                footerSymbol: "☀️ 🌻 ☀️",
+                stickers: ["☀️", "🌻", "🎈", "⭐"]
+            },
+            { 
+                title: "Staring Into Space", 
+                caption: "Searching for your lost brain cells out in the ocean. Any luck yet? 🌊🧠", 
+                img: "images/photo8.jpg",
+                bgColor: "#e0f7fa",
+                footerSymbol: "🌊 🫧 🌊",
+                stickers: ["🫧", "🌊", "🎁", "⭐"]
+            },
+            { 
+                title: "Queen of Nothing", 
+                caption: "Surveying your kingdom of laziness and empty snack wrappers. 🏰🍿", 
+                img: "images/photo9.jpg",
+                bgColor: "#f3e8ff",
+                footerSymbol: "🍿 👑 🍿",
+                stickers: ["🍿", "👑", "🎈", "🎉"]
+            },
+            { 
+                title: "Paparazzi Caught You", 
+                caption: "Even neon lights couldn't distract from how chaotic you looked here. 💡📸", 
+                img: "images/photo10.jpg",
+                bgColor: "#fce7f3",
+                footerSymbol: "📸 ✨ 📸",
+                stickers: ["📸", "💡", "⭐", "💖"]
+            },
+            { 
+                title: "Undercover Agent", 
+                caption: "Dressed in black to steal snacks from the fridge at 3 AM. 🥷🍫", 
+                img: "images/photo11.jpg",
+                bgColor: "#f3f4f6",
+                footerSymbol: "🍫 🕵️‍♀️ 🍫",
+                stickers: ["🍫", "🕵️‍♀️", "🎁", "🎈"]
+            },
+            { 
+                title: "Action Heroine", 
+                caption: "Stunt double for 'How to trip over nothing and act cool'. 🧗‍♀️🤸‍♀️", 
+                img: "images/photo12.jpg",
+                bgColor: "#ffedd5",
+                footerSymbol: "🧗‍♀️ ⚡ 🧗‍♀️",
+                stickers: ["⚡", "🧗‍♀️", "⭐", "🎉"]
+            },
+            { 
+                title: "Angel or Demon?", 
+                caption: "Looking like an angel... until you open your mouth to speak! 😇😈", 
+                img: "images/photo13.jpg",
+                bgColor: "#fee2e2",
+                footerSymbol: "😇 😈 😇",
+                stickers: ["😇", "😈", "🎈", "💖"]
+            },
+            { 
+                title: "Daydreamer Pro", 
+                caption: "Thinking about food, obviously. What else is new? 🍕💭", 
+                img: "images/photo14.jpg",
+                bgColor: "#fffbeb",
+                footerSymbol: "🍕 💭 🍕",
+                stickers: ["🍕", "💭", "🧁", "⭐"]
+            },
+            { 
+                title: "The Grand Finale", 
+                caption: "You survived another year of my jokes! Now where is my treat? Happy Birthday Soumya!! 🥳💸", 
+                img: "images/photo15.jpg",
+                bgColor: "#ffe4e6",
+                footerSymbol: "🥳 💸 🥳",
+                stickers: ["🥳", "💸", "🎂", "🎉"]
+            },
+            { 
+                title: "The End", 
+                caption: "The end of the book, but our memories continue! ❤️", 
+                img: "images/photo15.jpg",
+                bgColor: "#fce7f3",
+                footerSymbol: "❤️ ✨ ❤️",
+                stickers: ["❤️", "✨", "🎁", "🎈"]
+            }
+        ];
+
+        const container = document.getElementById('pagesContainer');
+        const leftPageContent = document.getElementById('leftPageContent');
+        const totalPages = bookData.length;
+        let activePageIndex = -1;
+
+        function buildBook() {
+            for (let i = totalPages - 1; i >= 0; i--) {
+                const pageDiv = document.createElement('div');
+                pageDiv.classList.add('page');
+                pageDiv.style.zIndex = totalPages - i;
+                pageDiv.id = `page-${i}`;
+
+                const currentData = bookData[i];
+
+                if (i === 0) {
+                    pageDiv.innerHTML = `
+                        <div class="page-face front cover-front">
+                            <h1>Open Me, Soumya! ✨</h1>
+                            <p>Prepare to be roasted...</p>
+                        </div>
+                        <div class="page-face back" style="background-color: ${currentData.bgColor};">
+                            <div class="photo-container-full" style="background-color: ${currentData.bgColor};">
+                                <div class="photo-inner-frame">
+                                    <img src="${currentData.img}" alt="${currentData.title}" onerror="this.src='https://via.placeholder.com/450x540?text=Photo+1+Missing'">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const prevData = bookData[i - 1];
+                    pageDiv.innerHTML = `
+                        <div class="page-face front" style="background-color: ${prevData.bgColor};">
+                            <div class="photo-container-full" style="background-color: ${prevData.bgColor};">
+                                <div class="photo-inner-frame">
+                                    <img src="${prevData.img}" alt="Previous Photo" onerror="this.src='https://via.placeholder.com/450x540?text=Photo+Missing'">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-face back" style="background-color: ${currentData.bgColor};">
+                            <div class="photo-container-full" style="background-color: ${currentData.bgColor};">
+                                <div class="photo-inner-frame">
+                                    <img src="${currentData.img}" alt="${currentData.title}" onerror="this.src='https://via.placeholder.com/450x540?text=Photo+Missing'">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                pageDiv.addEventListener('click', (function(index) {
+                    return function(e) {
+                        e.stopPropagation();
+                        turnPage(index);
+                    };
+                })(i));
+
+                container.appendChild(pageDiv);
+            }
+        }
+
+        function turnPage(index) {
+            const page = document.getElementById(`page-${index}`);
+            
+            if (!page.classList.contains('flipped')) {
+                page.classList.add('flipped');
+                page.style.transform = 'rotateY(-180deg)';
+                activePageIndex = index;
+
+                // Delayed left page update set to 0.5 seconds (500ms) to match page flip
+                setTimeout(() => {
+                    updateLeftPage(index);
+                }, 500);
+
+                if (index === 0) {
+                    confettiBurst();
+                }
+            } else {
+                if (index === activePageIndex) {
+                    turnPreviousPage();
+                }
+            }
+        }
+
+        function turnPreviousPage() {
+            if (activePageIndex >= 0) {
+                const page = document.getElementById(`page-${activePageIndex}`);
+                page.classList.remove('flipped');
+                page.style.transform = 'rotateY(0deg)';
+
+                activePageIndex--;
+                
+                // Delayed left page update set to 0.5 seconds (500ms) to match page flip
+                setTimeout(() => {
+                    updateLeftPage(activePageIndex);
+                }, 500);
+            }
+        }
+
+        function updateLeftPage(index) {
+            if (index === -1) {
+                leftPageContent.style.background = "#fffdf9";
+                leftPageContent.innerHTML = `
+                    <div class="page-sticker" style="top: 25px; left: 30px; transform: rotate(-8deg);">🎈</div>
+                    <div class="page-sticker" style="bottom: 30px; left: 35px; transform: rotate(12deg);">🎁</div>
+                    <div class="page-sticker" style="top: 30px; right: 30px; transform: rotate(10deg);">🧁</div>
+                    <div class="page-sticker" style="bottom: 35px; right: 30px; transform: rotate(-10deg);">⭐</div>
+                    <div class="left-content-inner">
+                        <h2>Happy Birthday Soumya!</h2>
+                        <p class="message">Warning: Opening this book may cause sudden bursts of laughter and exposure of your old embarrassing secrets. Proceed at your own risk! 🤫😂</p>
+                        <p class="message" style="font-size: 0.9rem; color: #888; font-style: italic;">Click the right page to open ➡️<br>(Click here to go back)</p>
+                        <div style="margin-top: 10px; font-size: 1.1rem; color: #ff949c; letter-spacing: 8px;">🎀 💖 🎀</div>
+                    </div>
+                `;
+            } else {
+                const activeData = bookData[index];
+                leftPageContent.style.background = activeData.bgColor;
+                leftPageContent.innerHTML = `
+                    <div class="page-sticker" style="top: 25px; left: 30px; transform: rotate(-10deg);">${activeData.stickers[0]}</div>
+                    <div class="page-sticker" style="bottom: 30px; left: 35px; transform: rotate(14deg);">${activeData.stickers[1]}</div>
+                    <div class="page-sticker" style="top: 30px; right: 30px; transform: rotate(8deg);">${activeData.stickers[2]}</div>
+                    <div class="page-sticker" style="bottom: 35px; right: 30px; transform: rotate(-12deg);">${activeData.stickers[3]}</div>
+                    <div class="left-content-inner">
+                        <h2>${activeData.title}</h2>
+                        <p class="message">${activeData.caption}</p>
+                        <p class="message" style="font-size: 0.8rem; color: #aaa; font-style: italic; margin-top: 10px;">(Click here to go back ⬅️)</p>
+                        <div style="margin-top: 10px; font-size: 1.1rem; letter-spacing: 8px;">${activeData.footerSymbol}</div>
+                    </div>
+                `;
+            }
+        }
+
+        buildBook();
+
+        // Continuous Background Animation (Balloons, Gifts, Cakes & Confetti Stickers floating)
+        tsParticles.load("tsparticles", {
+            particles: {
+                number: { value: 35, density: { enable: true, area: 500 } },
+                color: { value: ["#ff70a6", "#ff9770", "#ffd670", "#70d6ff", "#ffc700"] },
+                shape: {
+                    type: ["character"],
+                    options: { 
+                        character: { 
+                            value: ["🎈", "🎁", "🎂", "🧁", "🎉", "⭐", "🍰", "🎀"], 
+                            font: "Verdana", 
+                            weight: "400", 
+                            fill: true 
+                        } 
+                    }
+                },
+                opacity: { value: { min: 0.7, max: 1 } },
+                size: { value: { min: 14, max: 28 } },
+                move: { 
+                    enable: true, 
+                    speed: 2, 
+                    direction: "none", 
+                    random: true, 
+                    straight: false, 
+                    outModes: { default: "out" } 
+                },
+                wobble: { enable: true, distance: 20, speed: 6 }
+            },
+            detectRetina: true,
+        });
+
+        // Giant Explosion Burst on Open
+        function confettiBurst() {
+            const container = tsParticles.domItem(0);
+            if (container) {
+                container.addParticles({
+                    number: { value: 80 },
+                    shape: { 
+                        type: ["character"],
+                        options: { 
+                            character: { 
+                                value: ["🎈", "🎁", "🎂", "🧁", "🎉", "⭐"], 
+                                font: "Verdana", 
+                                weight: "400", 
+                                fill: true 
+                            } 
+                        }
+                    },
+                    opacity: { value: { min: 0.6, max: 1 } },
+                    size: { value: { min: 16, max: 30 } },
+                    move: { enable: true, speed: { min: 5, max: 12 }, direction: "none", straight: false, outModes: { default: "destroy" } },
+                    wobble: { enable: true, distance: 25, speed: 10 }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
